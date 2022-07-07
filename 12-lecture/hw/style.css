@@ -1,0 +1,25 @@
+.done {
+    background-color: lightgreen;
+}
+
+.hide {
+    display: none
+}
+
+.ml10 {
+    margin-left: 10px;
+}
+
+.todoItem {
+    font: small-caps bold 24px/1 sans-serif;
+}
+
+.editBtn {
+    color: forestgreen;
+    margin-left: 10px;
+}
+
+.deleteBtn {
+    color: indianred;
+    margin-left: 10px;
+}
