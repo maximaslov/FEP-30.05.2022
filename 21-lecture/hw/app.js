@@ -67,7 +67,10 @@ function renderPhotoListByAlbumId(id) {
 
 function getPhotoHTML(photo) {
   return photoItemTemplate
-    .replace('{{src}}', photo.thumbnailUrl)
+    // .replace('{{src}}', photo.thumbnailUrl)
+    .replace('{{src}}', 'https://placeimg.com/100/100/any' + `?qwe=${Math.random()}`)
+    .replace('{{id}}', photo.id)
+    .replace('{{title}}', photo.title)
 }
 
 function getFirstAlbumId(albums) {

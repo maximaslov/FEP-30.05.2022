@@ -2,7 +2,7 @@ class GalleryApi {
   static URL = 'https://jsonplaceholder.typicode.com';
 
   static request(uri = '', method = 'GET', data) {
-    return fetch(`${this.URL}${uri}`, {
+    return fetch(`${GalleryApi.URL}${uri}`, {
       method,
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
