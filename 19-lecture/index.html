@@ -1,16 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script defer src="./script.js"></script>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="style.css">
+  <script async src="./TodoApi.js"></script>
+  <script async src="./script.js"></script>
 </head>
 <body>
-  <iframe src="about:blank">
-    <form action="https://b.com" method="POST">
-      <input name="name" value="qwe">
-      <input name="message" value="qweqwe">
-    </form>
-  </iframe>
+<div>
+
+  <ul id="todoList">
+    <!-- items -->
+  </ul>
+
+  <form id="todoForm">
+    <input name="id" type="hidden" />
+    <input name="title" type="text" placeholder="Введите сообщение" />
+    <button class="add-button">Отправить</button>
+  </form>
+
+</div>
+
+<script id="newTaskTemplate" type="text/template">
+  <li
+      data-id="{{id}}"
+      data-status="{{status}}"
+      data-title="{{title}}"
+      class="todo-item {{done}}"
+  >
+    {{title}}
+    <button class="edit-button">Edit</button>
+    <button class="remove-button">Delete</button>
+  </li>
+</script>
 </body>
 </html>
