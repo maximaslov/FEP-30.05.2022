@@ -54,8 +54,7 @@ function getTodo() {
     };
 
     if (editingTodoId) {
-        const currentTodo = todoList
-          .find(todoItem => todoItem.id === editingTodoId) || {};
+        const currentTodo = getTodoById(editingTodoId);
 
         todo = {
             ...todo,
@@ -72,33 +71,36 @@ function getTodo() {
 
 
 function onEditBtnClick(e) {
-    const todoEl = getTodoItem($(e.target));
-    const id = todoEl.data('id').toString(); // dataset
-    const todo = todoList.find(todoItem => todoItem.id === id);
+    e.preventDefault();
+
+    const id = getIdByTodoEl($(e.target));
+    const todo = getTodoById(id);
 
     fillForm(todo);
     editingTodoId = id;
 }
 
 function onDeleteBtnClick(e) {
-    const todoEl = getTodoItem($(e.target)); // DOM Object -> JQuery Collection
-    const id = todoEl.dataset.id;
-    const todo = todoList.find(todoItem => todoItem.id === id);
+    e.preventDefault();
+
+    const $todoEl = getTodoItem($(e.target));
+    const id = getIdByTodoEl($(e.target));
 
     TodoApi.delete(id).catch(showError);
-    todoEl.remove();
+    $todoEl.remove();
 }
 
 function onTodoElClick(e) {
     const $todoEl = getTodoItem($(e.target));
     const id = $todoEl.dataset.id;
-    const todo = todoList.find(todoItem => todoItem.id === id);
+    const todo = getTodoById(id);
 
     TodoApi.update(id, { status: !todo.status })
       .then(() => {
           todo.status = !todo.status;
       })
       .catch(showError);
+
     $todoEl.toggleClass('done'); // classList
 }
 
@@ -106,10 +108,6 @@ function fillForm(todo) {
     const { id, title } = $todoForm[0].children;
     title.value = todo.title;
     id.value = todo.id;
-}
-
-function getTodoItem($el) {
-    return $el.closest(TODO_ITEM_SELECTOR);
 }
 
 function renderTodoList(list) {
@@ -145,4 +143,18 @@ function clearForm() {
 
 function showError(e) {
     alert(e.message);
+}
+
+function getTodoById(id) {
+    return todoList.find(todoItem => todoItem.id === id);
+}
+
+function getIdByTodoEl($el) {
+    const $todoEl = getTodoItem($el);
+
+    return $todoEl.data('id');
+}
+
+function getTodoItem($el) {
+    return $el.closest(TODO_ITEM_SELECTOR);
 }
